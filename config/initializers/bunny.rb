@@ -1,7 +1,9 @@
+require 'bunny'
 # RabbitMQ connection information
 
 # TODO Account for ENV specific connnections
 $bunny = Bunny.new
+# Now connected to RabbitMQ. This is the connection.
 $bunny.start
 
 $default_channel = $bunny.create_channel
