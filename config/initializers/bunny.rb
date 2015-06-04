@@ -11,6 +11,12 @@ $default_channel = $bunny.create_channel
 # Tracking process info
 puts "Rails Process ID: #{Process.pid}"
 
+# Not sure this is necessary because I believe bunny takes care of closing connections
+at_exit do
+  puts "%%% Closing bunny connection"
+  $bunny.stop
+end
+
 # It appears that bunny gem handles the connection closing / stopping properly.
 
 # Handle Ctrl-C
