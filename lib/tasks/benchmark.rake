@@ -36,9 +36,11 @@ namespace :benchmark do
 
       bm.report('http') do
         values.each do |value|
-          json = RestClient.post("http://localhost:9292/add", { values: [value[0], value[1]] })
-          result = JSON.parse(json)['result']
-          puts "HTTP Result #{result} vs expected #{value[2]}" if result != value[2]
+          Thread.new do
+            json = RestClient.post("http://localhost:9292/add", { values: [value[0], value[1]] })
+            result = JSON.parse(json)['result']
+            puts "HTTP Result #{result} vs expected #{value[2]}" if result != value[2]
+          end
         end
       end
     end
